@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.mapper.CurrentprojectinformationMapper">
+
+    <resultMap id="testResult" type="EchartsVo">
+        <result property="college" column="College" />
+        <result property="countCollege" column="count(1)" />
+        <result property="fundingType" column="FundingType" />
+        <result property="countFundingType" column="count(0)" />
+        <result property="applyCode" column="ApplyCode" />
+        <result property="countApplyCode" column="count(2)" />
+        <result property="submitTime" column="submitTime" />
+        <result property="countSubmitTime" column="count(3)" />
+    </resultMap>
+    
+    <resultMap type="Currentprojectinformation" id="CurrentprojectinformationResult">
+        <result property="id"    column="id"    />
+        <result property="applycode1"    column="ApplyCode1"    />
+        <result property="projectname"    column="ProjectName"    />
+        <result property="personname"    column="PersonName"    />
+        <result property="fundingtype"    column="FundingType"    />
+        <result property="sciencenumber"    column="ScienceNumber"    />
+        <result property="versionnumber"    column="VersionNumber"    />
+        <result property="college"    column="College"    />
+        <result property="applyyear"    column="ApplyYear"    />
+        <result property="submittime"    column="SubmitTime"    />
+        <result property="status"    column="Status"    />
+        <result property="projectenglishname"    column="ProjectEnglishName"    />
+        <result property="applycode2"    column="ApplyCode2"    />
+        <result property="subclassdescription"    column="SubclassDescription"    />
+        <result property="notedescription"    column="NoteDescription"    />
+        <result property="startdata"    column="StartData"    />
+        <result property="enddata"    column="EndData"    />
+        <result property="base"    column="Base"    />
+        <result property="mainresearch"    column="MainResearch"    />
+        <result property="researchdirection"    column="ResearchDirection"    />
+        <result property="chineseabstract"    column="ChineseAbstract"    />
+        <result property="englishabstract"    column="EnglishAbstract"    />
+        <result property="chinesekeyword"    column="ChineseKeyword"    />
+        <result property="englishkeyword"    column="EnglishKeyword"    />
+        <result property="supportingunit"    column="SupportingUnit"    />
+        <result property="unitcontact"    column="UnitContact"    />
+        <result property="unitcontactemail"    column="UnitContactEmail"    />
+        <result property="unitcontactphone"    column="UnitContactPhone"    />
+        <result property="collegecontact"    column="CollegeContact"    />
+        <result property="collegecontactemail"    column="CollegeContactEmail"    />
+        <result property="collegecontactphone"    column="CollegeContactPhone"    />
+        <result property="peaplelistname"    column="PeapleListName"    />
+        <result property="peaplelistemail"    column="PeapleListEmail"    />
+        <result property="peaplelistjob"    column="PeapleListJob"    />
+        <result property="peaplelistunitname"    column="PeapleListUnitName"    />
+        <result property="peaplelistwork"    column="PeapleListWork"    />
+        <result property="totalnumber"    column="TotalNumber"    />
+        <result property="advanced"    column="Advanced"    />
+        <result property="intermediate"    column="Intermediate"    />
+        <result property="primary1"    column="Primary1"    />
+        <result property="postdoc"    column="Postdoc"    />
+        <result property="phd"    column="PhD"    />
+        <result property="master"    column="Master"    />
+        <result property="applypersontype"    column="ApplyPersonType"    />
+        <result property="scientificresearchprojects"    column="ScientificResearchProjects"    />
+        <result property="scientificproblemattributes"    column="ScientificProblemAttributes"    />
+        <result property="scientificproblemattributescontent"    column="ScientificProblemAttributesContent"    />
+        <result property="pdfdownloadaddress"    column="PDFDownloadAddress"    />
+        <result property="processed"    column="Processed"    />
+        <result property="detected"    column="Detected"    />
+        <result property="statusweb"    column="StatusWeb"    />
+
+        <result property="checkrate"    column="CheckRate"    />
+    </resultMap>
+
+    <sql id="selectCurrentprojectinformationVo">
+        select id, ApplyCode1, ProjectName, PersonName, FundingType, ScienceNumber, VersionNumber, College, ApplyYear, SubmitTime, Status, ProjectEnglishName, ApplyCode2, SubclassDescription, NoteDescription, StartData, EndData, Base, MainResearch, ResearchDirection, ChineseAbstract, EnglishAbstract, ChineseKeyword, EnglishKeyword, SupportingUnit, UnitContact, UnitContactEmail, UnitContactPhone, CollegeContact, CollegeContactEmail, CollegeContactPhone, PeapleListName, PeapleListEmail, PeapleListJob, PeapleListUnitName, PeapleListWork, TotalNumber, Advanced, Intermediate, Primary1, Postdoc, PhD, Master, ApplyPersonType, ScientificResearchProjects, ScientificProblemAttributes, ScientificProblemAttributesContent, PDFDownloadAddress, Processed, Detected, StatusWeb, CheckRate from currentprojectinformation
+    </sql>
+
+    <select id="selectCurrentprojectinformationList" parameterType="Currentprojectinformation" resultMap="CurrentprojectinformationResult">
+        <include refid="selectCurrentprojectinformationVo"/>
+        <where>  
+            <if test="applycode1 != null  and applycode1 != ''"> and ApplyCode1 = #{applycode1}</if>
+            <if test="projectname != null  and projectname != ''"> and ProjectName like concat('%', #{projectname}, '%')</if>
+            <if test="personname != null  and personname != ''"> and PersonName like concat('%', #{personname}, '%')</if>
+            <if test="fundingtype != null  and fundingtype != ''"> and FundingType = #{fundingtype}</if>
+            <if test="sciencenumber != null  and sciencenumber != ''"> and ScienceNumber = #{sciencenumber}</if>
+            <if test="versionnumber != null  and versionnumber != ''"> and VersionNumber = #{versionnumber}</if>
+            <if test="college != null  and college != ''"> and College = #{college}</if>
+            <if test="applyyear != null  and applyyear != ''"> and ApplyYear = #{applyyear}</if>
+            <if test="submittime != null  and submittime != ''"> and SubmitTime = #{submittime}</if>
+            <if test="status != null  and status != ''"> and Status = #{status}</if>
+            <if test="projectenglishname != null  and projectenglishname != ''"> and ProjectEnglishName like concat('%', #{projectenglishname}, '%')</if>
+            <if test="applycode2 != null  and applycode2 != ''"> and ApplyCode2 = #{applycode2}</if>
+            <if test="subclassdescription != null  and subclassdescription != ''"> and SubclassDescription = #{subclassdescription}</if>
+            <if test="notedescription != null  and notedescription != ''"> and NoteDescription = #{notedescription}</if>
+            <if test="startdata != null  and startdata != ''"> and StartData = #{startdata}</if>
+            <if test="enddata != null  and enddata != ''"> and EndData = #{enddata}</if>
+            <if test="base != null  and base != ''"> and Base = #{base}</if>
+            <if test="mainresearch != null  and mainresearch != ''"> and MainResearch = #{mainresearch}</if>
+            <if test="researchdirection != null  and researchdirection != ''"> and ResearchDirection = #{researchdirection}</if>
+            <if test="chineseabstract != null  and chineseabstract != ''"> and ChineseAbstract = #{chineseabstract}</if>
+            <if test="englishabstract != null  and englishabstract != ''"> and EnglishAbstract = #{englishabstract}</if>
+            <if test="chinesekeyword != null  and chinesekeyword != ''"> and ChineseKeyword = #{chinesekeyword}</if>
+            <if test="englishkeyword != null  and englishkeyword != ''"> and EnglishKeyword = #{englishkeyword}</if>
+            <if test="supportingunit != null  and supportingunit != ''"> and SupportingUnit = #{supportingunit}</if>
+            <if test="unitcontact != null  and unitcontact != ''"> and UnitContact = #{unitcontact}</if>
+            <if test="unitcontactemail != null  and unitcontactemail != ''"> and UnitContactEmail = #{unitcontactemail}</if>
+            <if test="unitcontactphone != null  and unitcontactphone != ''"> and UnitContactPhone = #{unitcontactphone}</if>
+            <if test="collegecontact != null  and collegecontact != ''"> and CollegeContact = #{collegecontact}</if>
+            <if test="collegecontactemail != null  and collegecontactemail != ''"> and CollegeContactEmail = #{collegecontactemail}</if>
+            <if test="collegecontactphone != null  and collegecontactphone != ''"> and CollegeContactPhone = #{collegecontactphone}</if>
+            <if test="peaplelistname != null  and peaplelistname != ''"> and PeapleListName like concat('%', #{peaplelistname}, '%')</if>
+            <if test="peaplelistemail != null  and peaplelistemail != ''"> and PeapleListEmail = #{peaplelistemail}</if>
+            <if test="peaplelistjob != null  and peaplelistjob != ''"> and PeapleListJob = #{peaplelistjob}</if>
+            <if test="peaplelistunitname != null  and peaplelistunitname != ''"> and PeapleListUnitName like concat('%', #{peaplelistunitname}, '%')</if>
+            <if test="peaplelistwork != null  and peaplelistwork != ''"> and PeapleListWork = #{peaplelistwork}</if>
+            <if test="totalnumber != null  and totalnumber != ''"> and TotalNumber = #{totalnumber}</if>
+            <if test="advanced != null  and advanced != ''"> and Advanced = #{advanced}</if>
+            <if test="intermediate != null  and intermediate != ''"> and Intermediate = #{intermediate}</if>
+            <if test="primary1 != null  and primary1 != ''"> and Primary1 = #{primary1}</if>
+            <if test="postdoc != null  and postdoc != ''"> and Postdoc = #{postdoc}</if>
+            <if test="phd != null  and phd != ''"> and PhD = #{phd}</if>
+            <if test="master != null  and master != ''"> and Master = #{master}</if>
+            <if test="applypersontype != null  and applypersontype != ''"> and ApplyPersonType = #{applypersontype}</if>
+            <if test="scientificresearchprojects != null  and scientificresearchprojects != ''"> and ScientificResearchProjects = #{scientificresearchprojects}</if>
+            <if test="scientificproblemattributes != null  and scientificproblemattributes != ''"> and ScientificProblemAttributes = #{scientificproblemattributes}</if>
+            <if test="scientificproblemattributescontent != null  and scientificproblemattributescontent != ''"> and ScientificProblemAttributesContent = #{scientificproblemattributescontent}</if>
+            <if test="pdfdownloadaddress != null  and pdfdownloadaddress != ''"> and PDFDownloadAddress = #{pdfdownloadaddress}</if>
+            <if test="processed != null "> and Processed = #{processed}</if>
+            <if test="detected != null "> and Detected = #{detected}</if>
+            <if test="statusweb != null "> and StatusWeb = #{statusweb}</if>
+
+            <if test="checkrate != null "> and CheckRate = #{checkrate}</if>
+        </where>
+    </select>
+
+    <select id="selectCurrentprojectinformationListAfter" parameterType="Currentprojectinformation" resultMap="CurrentprojectinformationResult">
+        <include refid="selectCurrentprojectinformationVo"/>
+        <where>
+            <if test="applycode1 != null  and applycode1 != ''"> and ApplyCode1 = #{applycode1}</if>
+            <if test="projectname != null  and projectname != ''"> and ProjectName like concat('%', #{projectname}, '%')</if>
+            <if test="personname != null  and personname != ''"> and PersonName like concat('%', #{personname}, '%')</if>
+            <if test="fundingtype != null  and fundingtype != ''"> and FundingType = #{fundingtype}</if>
+            <if test="sciencenumber != null  and sciencenumber != ''"> and ScienceNumber = #{sciencenumber}</if>
+            <if test="versionnumber != null  and versionnumber != ''"> and VersionNumber = #{versionnumber}</if>
+            <if test="college != null  and college != ''"> and College = #{college}</if>
+            <if test="applyyear != null  and applyyear != ''"> and ApplyYear = #{applyyear}</if>
+            <if test="submittime != null  and submittime != ''"> and SubmitTime = #{submittime}</if>
+            <if test="status != null  and status != ''"> and Status = #{status}</if>
+            <if test="projectenglishname != null  and projectenglishname != ''"> and ProjectEnglishName like concat('%', #{projectenglishname}, '%')</if>
+            <if test="applycode2 != null  and applycode2 != ''"> and ApplyCode2 = #{applycode2}</if>
+            <if test="subclassdescription != null  and subclassdescription != ''"> and SubclassDescription = #{subclassdescription}</if>
+            <if test="notedescription != null  and notedescription != ''"> and NoteDescription = #{notedescription}</if>
+            <if test="startdata != null  and startdata != ''"> and StartData = #{startdata}</if>
+            <if test="enddata != null  and enddata != ''"> and EndData = #{enddata}</if>
+            <if test="base != null  and base != ''"> and Base = #{base}</if>
+            <if test="mainresearch != null  and mainresearch != ''"> and MainResearch = #{mainresearch}</if>
+            <if test="researchdirection != null  and researchdirection != ''"> and ResearchDirection = #{researchdirection}</if>
+            <if test="chineseabstract != null  and chineseabstract != ''"> and ChineseAbstract = #{chineseabstract}</if>
+            <if test="englishabstract != null  and englishabstract != ''"> and EnglishAbstract = #{englishabstract}</if>
+            <if test="chinesekeyword != null  and chinesekeyword != ''"> and ChineseKeyword = #{chinesekeyword}</if>
+            <if test="englishkeyword != null  and englishkeyword != ''"> and EnglishKeyword = #{englishkeyword}</if>
+            <if test="supportingunit != null  and supportingunit != ''"> and SupportingUnit = #{supportingunit}</if>
+            <if test="unitcontact != null  and unitcontact != ''"> and UnitContact = #{unitcontact}</if>
+            <if test="unitcontactemail != null  and unitcontactemail != ''"> and UnitContactEmail = #{unitcontactemail}</if>
+            <if test="unitcontactphone != null  and unitcontactphone != ''"> and UnitContactPhone = #{unitcontactphone}</if>
+            <if test="collegecontact != null  and collegecontact != ''"> and CollegeContact = #{collegecontact}</if>
+            <if test="collegecontactemail != null  and collegecontactemail != ''"> and CollegeContactEmail = #{collegecontactemail}</if>
+            <if test="collegecontactphone != null  and collegecontactphone != ''"> and CollegeContactPhone = #{collegecontactphone}</if>
+            <if test="peaplelistname != null  and peaplelistname != ''"> and PeapleListName like concat('%', #{peaplelistname}, '%')</if>
+            <if test="peaplelistemail != null  and peaplelistemail != ''"> and PeapleListEmail = #{peaplelistemail}</if>
+            <if test="peaplelistjob != null  and peaplelistjob != ''"> and PeapleListJob = #{peaplelistjob}</if>
+            <if test="peaplelistunitname != null  and peaplelistunitname != ''"> and PeapleListUnitName like concat('%', #{peaplelistunitname}, '%')</if>
+            <if test="peaplelistwork != null  and peaplelistwork != ''"> and PeapleListWork = #{peaplelistwork}</if>
+            <if test="totalnumber != null  and totalnumber != ''"> and TotalNumber = #{totalnumber}</if>
+            <if test="advanced != null  and advanced != ''"> and Advanced = #{advanced}</if>
+            <if test="intermediate != null  and intermediate != ''"> and Intermediate = #{intermediate}</if>
+            <if test="primary1 != null  and primary1 != ''"> and Primary1 = #{primary1}</if>
+            <if test="postdoc != null  and postdoc != ''"> and Postdoc = #{postdoc}</if>
+            <if test="phd != null  and phd != ''"> and PhD = #{phd}</if>
+            <if test="master != null  and master != ''"> and Master = #{master}</if>
+            <if test="applypersontype != null  and applypersontype != ''"> and ApplyPersonType = #{applypersontype}</if>
+            <if test="scientificresearchprojects != null  and scientificresearchprojects != ''"> and ScientificResearchProjects = #{scientificresearchprojects}</if>
+            <if test="scientificproblemattributes != null  and scientificproblemattributes != ''"> and ScientificProblemAttributes = #{scientificproblemattributes}</if>
+            <if test="scientificproblemattributescontent != null  and scientificproblemattributescontent != ''"> and ScientificProblemAttributesContent = #{scientificproblemattributescontent}</if>
+            <if test="pdfdownloadaddress != null  and pdfdownloadaddress != ''"> and PDFDownloadAddress = #{pdfdownloadaddress}</if>
+            <if test="processed != null "> and Processed = #{processed}</if>
+            <if test="detected != null "> and Detected = #{detected}</if>
+            <if test="statusweb =2   "> and StatusWeb = #{statusweb}</if>
+
+            <if test="checkrate != null "> and CheckRate = #{checkrate}</if>
+        </where>
+    </select>
+    
+    <select id="selectCurrentprojectinformationById" parameterType="Long" resultMap="CurrentprojectinformationResult">
+        <include refid="selectCurrentprojectinformationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCurrentprojectinformation" parameterType="Currentprojectinformation" useGeneratedKeys="true" keyProperty="id">
+        insert into currentprojectinformation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applycode1 != null  and applycode1 != ''">ApplyCode1,</if>
+            <if test="projectname != null  and projectname != ''">ProjectName,</if>
+            <if test="personname != null  and personname != ''">PersonName,</if>
+            <if test="fundingtype != null  and fundingtype != ''">FundingType,</if>
+            <if test="sciencenumber != null  and sciencenumber != ''">ScienceNumber,</if>
+            <if test="versionnumber != null  and versionnumber != ''">VersionNumber,</if>
+            <if test="college != null  and college != ''">College,</if>
+            <if test="applyyear != null  and applyyear != ''">ApplyYear,</if>
+            <if test="submittime != null  and submittime != ''">SubmitTime,</if>
+            <if test="status != null  and status != ''">Status,</if>
+            <if test="projectenglishname != null  and projectenglishname != ''">ProjectEnglishName,</if>
+            <if test="applycode2 != null  and applycode2 != ''">ApplyCode2,</if>
+            <if test="subclassdescription != null  and subclassdescription != ''">SubclassDescription,</if>
+            <if test="notedescription != null  and notedescription != ''">NoteDescription,</if>
+            <if test="startdata != null  and startdata != ''">StartData,</if>
+            <if test="enddata != null  and enddata != ''">EndData,</if>
+            <if test="base != null  and base != ''">Base,</if>
+            <if test="mainresearch != null  and mainresearch != ''">MainResearch,</if>
+            <if test="researchdirection != null  and researchdirection != ''">ResearchDirection,</if>
+            <if test="chineseabstract != null  and chineseabstract != ''">ChineseAbstract,</if>
+            <if test="englishabstract != null  and englishabstract != ''">EnglishAbstract,</if>
+            <if test="chinesekeyword != null  and chinesekeyword != ''">ChineseKeyword,</if>
+            <if test="englishkeyword != null  and englishkeyword != ''">EnglishKeyword,</if>
+            <if test="supportingunit != null  and supportingunit != ''">SupportingUnit,</if>
+            <if test="unitcontact != null  and unitcontact != ''">UnitContact,</if>
+            <if test="unitcontactemail != null  and unitcontactemail != ''">UnitContactEmail,</if>
+            <if test="unitcontactphone != null  and unitcontactphone != ''">UnitContactPhone,</if>
+            <if test="collegecontact != null  and collegecontact != ''">CollegeContact,</if>
+            <if test="collegecontactemail != null  and collegecontactemail != ''">CollegeContactEmail,</if>
+            <if test="collegecontactphone != null  and collegecontactphone != ''">CollegeContactPhone,</if>
+            <if test="peaplelistname != null  and peaplelistname != ''">PeapleListName,</if>
+            <if test="peaplelistemail != null  and peaplelistemail != ''">PeapleListEmail,</if>
+            <if test="peaplelistjob != null  and peaplelistjob != ''">PeapleListJob,</if>
+            <if test="peaplelistunitname != null  and peaplelistunitname != ''">PeapleListUnitName,</if>
+            <if test="peaplelistwork != null  and peaplelistwork != ''">PeapleListWork,</if>
+            <if test="totalnumber != null  and totalnumber != ''">TotalNumber,</if>
+            <if test="advanced != null  and advanced != ''">Advanced,</if>
+            <if test="intermediate != null  and intermediate != ''">Intermediate,</if>
+            <if test="primary1 != null  and primary1 != ''">Primary1,</if>
+            <if test="postdoc != null  and postdoc != ''">Postdoc,</if>
+            <if test="phd != null  and phd != ''">PhD,</if>
+            <if test="master != null  and master != ''">Master,</if>
+            <if test="applypersontype != null  and applypersontype != ''">ApplyPersonType,</if>
+            <if test="scientificresearchprojects != null  and scientificresearchprojects != ''">ScientificResearchProjects,</if>
+            <if test="scientificproblemattributes != null  and scientificproblemattributes != ''">ScientificProblemAttributes,</if>
+            <if test="scientificproblemattributescontent != null  and scientificproblemattributescontent != ''">ScientificProblemAttributesContent,</if>
+            <if test="pdfdownloadaddress != null  and pdfdownloadaddress != ''">PDFDownloadAddress,</if>
+            <if test="processed != null ">Processed,</if>
+            <if test="detected != null ">Detected,</if>
+            <if test="statusweb != null ">StatusWeb,</if>
+
+            <if test="checkrate != null ">CheckRate,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applycode1 != null  and applycode1 != ''">#{applycode1},</if>
+            <if test="projectname != null  and projectname != ''">#{projectname},</if>
+            <if test="personname != null  and personname != ''">#{personname},</if>
+            <if test="fundingtype != null  and fundingtype != ''">#{fundingtype},</if>
+            <if test="sciencenumber != null  and sciencenumber != ''">#{sciencenumber},</if>
+            <if test="versionnumber != null  and versionnumber != ''">#{versionnumber},</if>
+            <if test="college != null  and college != ''">#{college},</if>
+            <if test="applyyear != null  and applyyear != ''">#{applyyear},</if>
+            <if test="submittime != null  and submittime != ''">#{submittime},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="projectenglishname != null  and projectenglishname != ''">#{projectenglishname},</if>
+            <if test="applycode2 != null  and applycode2 != ''">#{applycode2},</if>
+            <if test="subclassdescription != null  and subclassdescription != ''">#{subclassdescription},</if>
+            <if test="notedescription != null  and notedescription != ''">#{notedescription},</if>
+            <if test="startdata != null  and startdata != ''">#{startdata},</if>
+            <if test="enddata != null  and enddata != ''">#{enddata},</if>
+            <if test="base != null  and base != ''">#{base},</if>
+            <if test="mainresearch != null  and mainresearch != ''">#{mainresearch},</if>
+            <if test="researchdirection != null  and researchdirection != ''">#{researchdirection},</if>
+            <if test="chineseabstract != null  and chineseabstract != ''">#{chineseabstract},</if>
+            <if test="englishabstract != null  and englishabstract != ''">#{englishabstract},</if>
+            <if test="chinesekeyword != null  and chinesekeyword != ''">#{chinesekeyword},</if>
+            <if test="englishkeyword != null  and englishkeyword != ''">#{englishkeyword},</if>
+            <if test="supportingunit != null  and supportingunit != ''">#{supportingunit},</if>
+            <if test="unitcontact != null  and unitcontact != ''">#{unitcontact},</if>
+            <if test="unitcontactemail != null  and unitcontactemail != ''">#{unitcontactemail},</if>
+            <if test="unitcontactphone != null  and unitcontactphone != ''">#{unitcontactphone},</if>
+            <if test="collegecontact != null  and collegecontact != ''">#{collegecontact},</if>
+            <if test="collegecontactemail != null  and collegecontactemail != ''">#{collegecontactemail},</if>
+            <if test="collegecontactphone != null  and collegecontactphone != ''">#{collegecontactphone},</if>
+            <if test="peaplelistname != null  and peaplelistname != ''">#{peaplelistname},</if>
+            <if test="peaplelistemail != null  and peaplelistemail != ''">#{peaplelistemail},</if>
+            <if test="peaplelistjob != null  and peaplelistjob != ''">#{peaplelistjob},</if>
+            <if test="peaplelistunitname != null  and peaplelistunitname != ''">#{peaplelistunitname},</if>
+            <if test="peaplelistwork != null  and peaplelistwork != ''">#{peaplelistwork},</if>
+            <if test="totalnumber != null  and totalnumber != ''">#{totalnumber},</if>
+            <if test="advanced != null  and advanced != ''">#{advanced},</if>
+            <if test="intermediate != null  and intermediate != ''">#{intermediate},</if>
+            <if test="primary1 != null  and primary1 != ''">#{primary1},</if>
+            <if test="postdoc != null  and postdoc != ''">#{postdoc},</if>
+            <if test="phd != null  and phd != ''">#{phd},</if>
+            <if test="master != null  and master != ''">#{master},</if>
+            <if test="applypersontype != null  and applypersontype != ''">#{applypersontype},</if>
+            <if test="scientificresearchprojects != null  and scientificresearchprojects != ''">#{scientificresearchprojects},</if>
+            <if test="scientificproblemattributes != null  and scientificproblemattributes != ''">#{scientificproblemattributes},</if>
+            <if test="scientificproblemattributescontent != null  and scientificproblemattributescontent != ''">#{scientificproblemattributescontent},</if>
+            <if test="pdfdownloadaddress != null  and pdfdownloadaddress != ''">#{pdfdownloadaddress},</if>
+            <if test="processed != null ">#{processed},</if>
+            <if test="detected != null ">#{detected},</if>
+            <if test="statusweb != null ">#{statusweb},</if>
+
+            <if test="checkrate != null ">#{checkrate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCurrentprojectinformation" parameterType="Currentprojectinformation">
+        update currentprojectinformation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applycode1 != null  and applycode1 != ''">ApplyCode1 = #{applycode1},</if>
+            <if test="projectname != null  and projectname != ''">ProjectName = #{projectname},</if>
+            <if test="personname != null  and personname != ''">PersonName = #{personname},</if>
+            <if test="fundingtype != null  and fundingtype != ''">FundingType = #{fundingtype},</if>
+            <if test="sciencenumber != null  and sciencenumber != ''">ScienceNumber = #{sciencenumber},</if>
+            <if test="versionnumber != null  and versionnumber != ''">VersionNumber = #{versionnumber},</if>
+            <if test="college != null  and college != ''">College = #{college},</if>
+            <if test="applyyear != null  and applyyear != ''">ApplyYear = #{applyyear},</if>
+            <if test="submittime != null  and submittime != ''">SubmitTime = #{submittime},</if>
+            <if test="status != null  and status != ''">Status = #{status},</if>
+            <if test="projectenglishname != null  and projectenglishname != ''">ProjectEnglishName = #{projectenglishname},</if>
+            <if test="applycode2 != null  and applycode2 != ''">ApplyCode2 = #{applycode2},</if>
+            <if test="subclassdescription != null  and subclassdescription != ''">SubclassDescription = #{subclassdescription},</if>
+            <if test="notedescription != null  and notedescription != ''">NoteDescription = #{notedescription},</if>
+            <if test="startdata != null  and startdata != ''">StartData = #{startdata},</if>
+            <if test="enddata != null  and enddata != ''">EndData = #{enddata},</if>
+            <if test="base != null  and base != ''">Base = #{base},</if>
+            <if test="mainresearch != null  and mainresearch != ''">MainResearch = #{mainresearch},</if>
+            <if test="researchdirection != null  and researchdirection != ''">ResearchDirection = #{researchdirection},</if>
+            <if test="chineseabstract != null  and chineseabstract != ''">ChineseAbstract = #{chineseabstract},</if>
+            <if test="englishabstract != null  and englishabstract != ''">EnglishAbstract = #{englishabstract},</if>
+            <if test="chinesekeyword != null  and chinesekeyword != ''">ChineseKeyword = #{chinesekeyword},</if>
+            <if test="englishkeyword != null  and englishkeyword != ''">EnglishKeyword = #{englishkeyword},</if>
+            <if test="supportingunit != null  and supportingunit != ''">SupportingUnit = #{supportingunit},</if>
+            <if test="unitcontact != null  and unitcontact != ''">UnitContact = #{unitcontact},</if>
+            <if test="unitcontactemail != null  and unitcontactemail != ''">UnitContactEmail = #{unitcontactemail},</if>
+            <if test="unitcontactphone != null  and unitcontactphone != ''">UnitContactPhone = #{unitcontactphone},</if>
+            <if test="collegecontact != null  and collegecontact != ''">CollegeContact = #{collegecontact},</if>
+            <if test="collegecontactemail != null  and collegecontactemail != ''">CollegeContactEmail = #{collegecontactemail},</if>
+            <if test="collegecontactphone != null  and collegecontactphone != ''">CollegeContactPhone = #{collegecontactphone},</if>
+            <if test="peaplelistname != null  and peaplelistname != ''">PeapleListName = #{peaplelistname},</if>
+            <if test="peaplelistemail != null  and peaplelistemail != ''">PeapleListEmail = #{peaplelistemail},</if>
+            <if test="peaplelistjob != null  and peaplelistjob != ''">PeapleListJob = #{peaplelistjob},</if>
+            <if test="peaplelistunitname != null  and peaplelistunitname != ''">PeapleListUnitName = #{peaplelistunitname},</if>
+            <if test="peaplelistwork != null  and peaplelistwork != ''">PeapleListWork = #{peaplelistwork},</if>
+            <if test="totalnumber != null  and totalnumber != ''">TotalNumber = #{totalnumber},</if>
+            <if test="advanced != null  and advanced != ''">Advanced = #{advanced},</if>
+            <if test="intermediate != null  and intermediate != ''">Intermediate = #{intermediate},</if>
+            <if test="primary1 != null  and primary1 != ''">Primary1 = #{primary1},</if>
+            <if test="postdoc != null  and postdoc != ''">Postdoc = #{postdoc},</if>
+            <if test="phd != null  and phd != ''">PhD = #{phd},</if>
+            <if test="master != null  and master != ''">Master = #{master},</if>
+            <if test="applypersontype != null  and applypersontype != ''">ApplyPersonType = #{applypersontype},</if>
+            <if test="scientificresearchprojects != null  and scientificresearchprojects != ''">ScientificResearchProjects = #{scientificresearchprojects},</if>
+            <if test="scientificproblemattributes != null  and scientificproblemattributes != ''">ScientificProblemAttributes = #{scientificproblemattributes},</if>
+            <if test="scientificproblemattributescontent != null  and scientificproblemattributescontent != ''">ScientificProblemAttributesContent = #{scientificproblemattributescontent},</if>
+            <if test="pdfdownloadaddress != null  and pdfdownloadaddress != ''">PDFDownloadAddress = #{pdfdownloadaddress},</if>
+            <if test="processed != null ">Processed = #{processed},</if>
+            <if test="detected != null ">Detected = #{detected},</if>
+            <if test="statusweb != null ">StatusWeb = #{statusweb},</if>
+
+            <if test="checkrate != null ">CheckRate = #{checkrate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCurrentprojectinformationById" parameterType="Long">
+        delete from currentprojectinformation where id = #{id}
+    </delete>
+
+    <delete id="deleteCurrentprojectinformationByIds" parameterType="String">
+        delete from currentprojectinformation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updataStatus" parameterType="String">
+        update currentprojectinformation set StatusWeb='1' where id = #{id}
+    </update>
+
+    <update id="updataStatusAll" parameterType="String">
+        update currentprojectinformation set StatusWeb='1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="selectCollege" resultMap="testResult">
+        select College,count(1)  from currentprojectinformation group by College having count(1) > 1
+    </select>
+
+    <select id="selectFundingType" resultMap="testResult">
+        select FundingType,count(0)  from currentprojectinformation group by FundingType having count(0) > 0
+    </select>
+
+    <select id="selectApplyCode" resultMap="testResult">
+        SELECT LEFT(ApplyCode1,1) ApplyCode,count(2)  from currentprojectinformation GROUP BY LEFT(ApplyCode1,1)
+    </select>
+
+    <select id="selectSubmitTime" resultMap="testResult">
+        SELECT LEFT(SubmitTime,9) submitTime,count(3)   from currentprojectinformation  GROUP BY LEFT(SubmitTime,9) ORDER BY submitTime DESC
+    </select>
+    
+</mapper>

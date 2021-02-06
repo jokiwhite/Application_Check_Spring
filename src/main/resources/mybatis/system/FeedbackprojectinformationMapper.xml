@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.mapper.FeedbackprojectinformationMapper">
+    
+    <resultMap type="Feedbackprojectinformation" id="FeedbackprojectinformationResult">
+        <result property="id"    column="id"    />
+        <result property="applyyear"    column="ApplyYear"    />
+        <result property="sciencenumber"    column="ScienceNumber"    />
+        <result property="projectname"    column="ProjectName"    />
+        <result property="personname"    column="PersonName"    />
+        <result property="applycode1"    column="ApplyCode1"    />
+        <result property="fundingtype"    column="FundingType"    />
+        <result property="money"    column="Money"    />
+        <result property="projectapprovalnumber"    column="ProjectApprovalNumber"    />
+        <result property="applycode2"    column="ApplyCode2"    />
+        <result property="projectenglishname"    column="ProjectEnglishName"    />
+        <result property="unitname"    column="UnitName"    />
+        <result property="projectapprovaldocumentnumber"    column="ProjectApprovalDocumentNumber"    />
+        <result property="college"    column="College"    />
+        <result property="cooperativeresearchunit"    column="CooperativeResearchUnit"    />
+        <result property="jobtitle"    column="JobTitle"    />
+        <result property="researchnature"    column="ResearchNature"    />
+        <result property="startendtime"    column="StartEndTime"    />
+        <result property="statusweb"    column="StatusWeb"    />
+    </resultMap>
+
+    <sql id="selectFeedbackprojectinformationVo">
+        select id, ApplyYear, ScienceNumber, ProjectName, PersonName, ApplyCode1, FundingType, Money, ProjectApprovalNumber, ApplyCode2, ProjectEnglishName, UnitName, ProjectApprovalDocumentNumber, College, CooperativeResearchUnit, JobTitle, ResearchNature, StartEndTime, StatusWeb from feedbackprojectinformation
+    </sql>
+
+    <select id="selectFeedbackprojectinformationList" parameterType="Feedbackprojectinformation" resultMap="FeedbackprojectinformationResult">
+        <include refid="selectFeedbackprojectinformationVo"/>
+        <where>  
+            <if test="applyyear != null  and applyyear != ''"> and ApplyYear = #{applyyear}</if>
+            <if test="sciencenumber != null  and sciencenumber != ''"> and ScienceNumber = #{sciencenumber}</if>
+            <if test="projectname != null  and projectname != ''"> and ProjectName like concat('%', #{projectname}, '%')</if>
+            <if test="personname != null  and personname != ''"> and PersonName like concat('%', #{personname}, '%')</if>
+            <if test="applycode1 != null  and applycode1 != ''"> and ApplyCode1 = #{applycode1}</if>
+            <if test="fundingtype != null  and fundingtype != ''"> and FundingType = #{fundingtype}</if>
+            <if test="money != null  and money != ''"> and Money = #{money}</if>
+            <if test="projectapprovalnumber != null  and projectapprovalnumber != ''"> and ProjectApprovalNumber = #{projectapprovalnumber}</if>
+            <if test="applycode2 != null  and applycode2 != ''"> and ApplyCode2 = #{applycode2}</if>
+            <if test="projectenglishname != null  and projectenglishname != ''"> and ProjectEnglishName like concat('%', #{projectenglishname}, '%')</if>
+            <if test="unitname != null  and unitname != ''"> and UnitName like concat('%', #{unitname}, '%')</if>
+            <if test="projectapprovaldocumentnumber != null  and projectapprovaldocumentnumber != ''"> and ProjectApprovalDocumentNumber = #{projectapprovaldocumentnumber}</if>
+            <if test="college != null  and college != ''"> and College = #{college}</if>
+            <if test="cooperativeresearchunit != null  and cooperativeresearchunit != ''"> and CooperativeResearchUnit = #{cooperativeresearchunit}</if>
+            <if test="jobtitle != null  and jobtitle != ''"> and JobTitle = #{jobtitle}</if>
+            <if test="researchnature != null  and researchnature != ''"> and ResearchNature = #{researchnature}</if>
+            <if test="startendtime != null  and startendtime != ''"> and StartEndTime = #{startendtime}</if>
+            <if test="statusweb != null "> and StatusWeb = #{statusweb}</if>
+        </where>
+    </select>
+    
+    <select id="selectFeedbackprojectinformationById" parameterType="String" resultMap="FeedbackprojectinformationResult">
+        <include refid="selectFeedbackprojectinformationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFeedbackprojectinformation" parameterType="Feedbackprojectinformation">
+        insert into feedbackprojectinformation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="applyyear != null  and applyyear != ''">ApplyYear,</if>
+            <if test="sciencenumber != null  and sciencenumber != ''">ScienceNumber,</if>
+            <if test="projectname != null  and projectname != ''">ProjectName,</if>
+            <if test="personname != null  and personname != ''">PersonName,</if>
+            <if test="applycode1 != null  and applycode1 != ''">ApplyCode1,</if>
+            <if test="fundingtype != null  and fundingtype != ''">FundingType,</if>
+            <if test="money != null  and money != ''">Money,</if>
+            <if test="projectapprovalnumber != null  and projectapprovalnumber != ''">ProjectApprovalNumber,</if>
+            <if test="applycode2 != null  and applycode2 != ''">ApplyCode2,</if>
+            <if test="projectenglishname != null  and projectenglishname != ''">ProjectEnglishName,</if>
+            <if test="unitname != null  and unitname != ''">UnitName,</if>
+            <if test="projectapprovaldocumentnumber != null  and projectapprovaldocumentnumber != ''">ProjectApprovalDocumentNumber,</if>
+            <if test="college != null  and college != ''">College,</if>
+            <if test="cooperativeresearchunit != null  and cooperativeresearchunit != ''">CooperativeResearchUnit,</if>
+            <if test="jobtitle != null  and jobtitle != ''">JobTitle,</if>
+            <if test="researchnature != null  and researchnature != ''">ResearchNature,</if>
+            <if test="startendtime != null  and startendtime != ''">StartEndTime,</if>
+            <if test="statusweb != null ">StatusWeb,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="applyyear != null  and applyyear != ''">#{applyyear},</if>
+            <if test="sciencenumber != null  and sciencenumber != ''">#{sciencenumber},</if>
+            <if test="projectname != null  and projectname != ''">#{projectname},</if>
+            <if test="personname != null  and personname != ''">#{personname},</if>
+            <if test="applycode1 != null  and applycode1 != ''">#{applycode1},</if>
+            <if test="fundingtype != null  and fundingtype != ''">#{fundingtype},</if>
+            <if test="money != null  and money != ''">#{money},</if>
+            <if test="projectapprovalnumber != null  and projectapprovalnumber != ''">#{projectapprovalnumber},</if>
+            <if test="applycode2 != null  and applycode2 != ''">#{applycode2},</if>
+            <if test="projectenglishname != null  and projectenglishname != ''">#{projectenglishname},</if>
+            <if test="unitname != null  and unitname != ''">#{unitname},</if>
+            <if test="projectapprovaldocumentnumber != null  and projectapprovaldocumentnumber != ''">#{projectapprovaldocumentnumber},</if>
+            <if test="college != null  and college != ''">#{college},</if>
+            <if test="cooperativeresearchunit != null  and cooperativeresearchunit != ''">#{cooperativeresearchunit},</if>
+            <if test="jobtitle != null  and jobtitle != ''">#{jobtitle},</if>
+            <if test="researchnature != null  and researchnature != ''">#{researchnature},</if>
+            <if test="startendtime != null  and startendtime != ''">#{startendtime},</if>
+            <if test="statusweb != null ">#{statusweb},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFeedbackprojectinformation" parameterType="Feedbackprojectinformation">
+        update feedbackprojectinformation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applyyear != null  and applyyear != ''">ApplyYear = #{applyyear},</if>
+            <if test="sciencenumber != null  and sciencenumber != ''">ScienceNumber = #{sciencenumber},</if>
+            <if test="projectname != null  and projectname != ''">ProjectName = #{projectname},</if>
+            <if test="personname != null  and personname != ''">PersonName = #{personname},</if>
+            <if test="applycode1 != null  and applycode1 != ''">ApplyCode1 = #{applycode1},</if>
+            <if test="fundingtype != null  and fundingtype != ''">FundingType = #{fundingtype},</if>
+            <if test="money != null  and money != ''">Money = #{money},</if>
+            <if test="projectapprovalnumber != null  and projectapprovalnumber != ''">ProjectApprovalNumber = #{projectapprovalnumber},</if>
+            <if test="applycode2 != null  and applycode2 != ''">ApplyCode2 = #{applycode2},</if>
+            <if test="projectenglishname != null  and projectenglishname != ''">ProjectEnglishName = #{projectenglishname},</if>
+            <if test="unitname != null  and unitname != ''">UnitName = #{unitname},</if>
+            <if test="projectapprovaldocumentnumber != null  and projectapprovaldocumentnumber != ''">ProjectApprovalDocumentNumber = #{projectapprovaldocumentnumber},</if>
+            <if test="college != null  and college != ''">College = #{college},</if>
+            <if test="cooperativeresearchunit != null  and cooperativeresearchunit != ''">CooperativeResearchUnit = #{cooperativeresearchunit},</if>
+            <if test="jobtitle != null  and jobtitle != ''">JobTitle = #{jobtitle},</if>
+            <if test="researchnature != null  and researchnature != ''">ResearchNature = #{researchnature},</if>
+            <if test="startendtime != null  and startendtime != ''">StartEndTime = #{startendtime},</if>
+            <if test="statusweb != null ">StatusWeb = #{statusweb},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFeedbackprojectinformationById" parameterType="String">
+        delete from feedbackprojectinformation where id = #{id}
+    </delete>
+
+    <delete id="deleteFeedbackprojectinformationByIds" parameterType="String">
+        delete from feedbackprojectinformation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updataStatus" parameterType="String">
+        update feedbackprojectinformation set StatusWeb='1' where id = #{id}
+    </update>
+
+    <update id="updataStatusAll" parameterType="String">
+        update feedbackprojectinformation set StatusWeb='1' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
