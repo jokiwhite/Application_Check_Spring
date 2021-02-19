@@ -66,7 +66,7 @@ public class CurrentprojectinformationController extends BaseController
         List<EchartsVo> result =currentprojectinformationService.handleApplyCode(list);
         return R.ok().data("list",result);
     }
-    //折线图
+    //折线图最近七日提交
     @PostMapping("/submitTimeline")
     public R submitTimeline(){
         List<EchartsVo> list = currentprojectinformationService.selectSubmitTime();
