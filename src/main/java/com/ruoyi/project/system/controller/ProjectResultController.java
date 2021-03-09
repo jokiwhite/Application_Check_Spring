@@ -128,7 +128,13 @@ public class ProjectResultController extends BaseController {
             projectResultBody.setArticleID2(articleID21);
 
             String article2Name = projectService.selectFeedbackprojectinformationById(articleID21).getProjectname();
-            projectResultBody.setArticle2Name(article2Name);
+            String personname = projectService.selectFeedbackprojectinformationById(articleID21).getPersonname();
+            String applyyear = projectService.selectFeedbackprojectinformationById(articleID21).getApplyyear();
+            String fundingtype = projectService.selectFeedbackprojectinformationById(articleID21).getFundingtype();
+
+            String result = applyyear+"_"+personname+"_"+article2Name+"_"+fundingtype;
+
+            projectResultBody.setArticle2Name(result);
             projectResultBodies.add(projectResultBody);
         }
 
