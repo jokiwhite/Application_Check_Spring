@@ -2,21 +2,25 @@ package com.ruoyi.project.system.service.impl;
 
 import com.ruoyi.project.system.domain.ProjectResult;
 import com.ruoyi.project.system.domain.vo.ProjectResultBody;
+import com.ruoyi.project.system.domain.vo.quChongVO;
+import com.ruoyi.project.system.mapper.CurrentprojectinformationMapper;
+import com.ruoyi.project.system.mapper.FeedbackprojectinformationMapper;
 import com.ruoyi.project.system.mapper.ProjectResultMapper;
 import com.ruoyi.project.system.service.IProjectResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ProjectResultServiceImpl implements IProjectResultService {
 
     @Autowired
     private ProjectResultMapper  projectResultMapper;
+    @Autowired
+    private CurrentprojectinformationMapper currentprojectinformationMapper;
+    @Autowired
+    private FeedbackprojectinformationMapper feedbackprojectinformationMapper;
 
 
 
@@ -42,6 +46,33 @@ public class ProjectResultServiceImpl implements IProjectResultService {
                 projectResultBody.setComparedNum(String.valueOf(map.get(projectResultBody.getArticleID2())));
             }
         }
+
+    }
+
+    @Override
+    public HashSet<Integer> quChong() {
+
+
+        HashSet<Integer> result = new HashSet<>();
+        List<quChongVO> currentID = projectResultMapper.getCurrentID();
+
+        for (quChongVO quChongVO : currentID) {
+            String personname = currentprojectinformationMapper.selectCurrentprojectinformationById(Long.valueOf(quChongVO.getCurrentArticleID())).getPersonname();
+            HashSet<String> CpersonName = new HashSet<>();
+            List<Integer> comparedArticleIDById = projectResultMapper.getComparedArticleIDById(String.valueOf(quChongVO.getCurrentArticleID()));
+            System.out.println(personname);
+
+            for (Integer comparedArticleID : comparedArticleIDById) {
+                String personname1 = feedbackprojectinformationMapper.selectFeedbackprojectinformationById(String.valueOf(comparedArticleID)).getPersonname();
+                CpersonName.add(personname1);
+            }
+            if (CpersonName.contains(personname)){
+                result.add(quChongVO.getCurrentArticleID());
+            }
+        }
+
+
+        return  result;
 
     }
 }

@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/*/api-docs").anonymous()
                 .antMatchers("/druid/**").anonymous()
                 //去除swagger的权限
-//                .antMatchers("/system/currentprojectinformation/**").anonymous()
+//                .antMatchers("/system/project-result/**").anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
                 .and()

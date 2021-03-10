@@ -402,7 +402,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectSubmitTime" resultMap="testResult">
-        SELECT LEFT(SubmitTime,9) submitTime,count(3)   from currentprojectinformation  GROUP BY LEFT(SubmitTime,9) ORDER BY submitTime DESC
+        SELECT LEFT(SubmitTime,10) submitTime,count(3)   from currentprojectinformation  GROUP BY LEFT(SubmitTime,10) ORDER BY submitTime DESC
     </select>
     
 </mapper>

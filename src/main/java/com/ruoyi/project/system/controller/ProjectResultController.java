@@ -8,6 +8,7 @@ import com.ruoyi.project.system.domain.Currentprojectinformation;
 import com.ruoyi.project.system.domain.Feedbackprojectinformation;
 import com.ruoyi.project.system.domain.ProjectResult;
 import com.ruoyi.project.system.domain.vo.ProjectResultBody;
+import com.ruoyi.project.system.domain.vo.quChongVO;
 import com.ruoyi.project.system.service.ICurrentprojectinformationService;
 import com.ruoyi.project.system.service.IFeedbackprojectinformationService;
 import com.ruoyi.project.system.service.IProjectResultService;
@@ -38,6 +39,15 @@ public class ProjectResultController extends BaseController {
     private IProjectResultService projectResultService;
 
 
+    @ApiOperation(value = "去重")
+    @GetMapping("test/{id1}")
+    public R test() {
+
+        HashSet<Integer> result = projectResultService.quChong();
+        return  R.ok().data("test",result);
+
+    }
+
 
     @ApiOperation(value = "根据ID获取概览数据")
     @GetMapping("findByIdSurvey/{id1}")
@@ -50,18 +60,39 @@ public class ProjectResultController extends BaseController {
         //利用currentid获取currentinformation
         Currentprojectinformation currentprojectinformations = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(id1));
 
+
+
         String article1Name = projectService.selectFeedbackprojectinformationById(address1.get(0).getCurrentArticleID()).getProjectname();
 
         List<ProjectResultBody> projectResultBodies = new ArrayList<>();
 
         for (ProjectResult projectResult : address1) {
 
-            Feedbackprojectinformation feedbackprojectinformation = projectService.selectFeedbackprojectinformationById(projectResult.getComparedArticleID());
-            String article2Name = feedbackprojectinformation.getProjectname();
-            String personname = feedbackprojectinformation.getPersonname();
-            String fundingtype = feedbackprojectinformation.getFundingtype();
-            String college = feedbackprojectinformation.getCollege();
-            String applyyear = feedbackprojectinformation.getApplyyear();
+            String article2Name;
+            String personname;
+            String fundingtype;
+            String college;
+            String applyyear;
+
+
+            if (projectResult.getStatus()==1){
+                Currentprojectinformation currentprojectinformation = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(projectResult.getComparedArticleID()));
+
+                article2Name = currentprojectinformation.getProjectname();
+                 personname = currentprojectinformation.getPersonname();
+                 fundingtype = currentprojectinformation.getFundingtype();
+                 college = currentprojectinformation.getCollege();
+                 applyyear = currentprojectinformation.getApplyyear();
+            }else {
+                Feedbackprojectinformation feedbackprojectinformation = projectService.selectFeedbackprojectinformationById(projectResult.getComparedArticleID());
+                article2Name = feedbackprojectinformation.getProjectname();
+                personname = feedbackprojectinformation.getPersonname();
+                fundingtype = feedbackprojectinformation.getFundingtype();
+                college = feedbackprojectinformation.getCollege();
+                applyyear = feedbackprojectinformation.getApplyyear();
+            }
+
+
 
             ProjectResultBody projectResultBody = new ProjectResultBody();
             projectResultBody.setPersonName(personname);
@@ -105,6 +136,15 @@ public class ProjectResultController extends BaseController {
 
         List<ProjectResultBody> projectResultBodies = new ArrayList<>();
 
+        Currentprojectinformation currentprojectinformation = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(id1));
+
+        String applyyear1 = currentprojectinformation.getApplyyear();
+        String personname1 = currentprojectinformation.getPersonname();
+        String projectname = currentprojectinformation.getProjectname();
+        String fundingtype1 = currentprojectinformation.getFundingtype();
+
+        String result1 = applyyear1+"_"+personname1+"_"+projectname+"_"+fundingtype1;
+
         for (ProjectResult projectResult : address1) {
 
             //原文的地址字段转文件服务器上的真实文字
@@ -114,6 +154,9 @@ public class ProjectResultController extends BaseController {
             String fileName = names[4];
             String DataCurrent=FTPUtil.getData(path,fileName);
             projectResult.setCurrentArticleParagraphContent(DataCurrent);
+
+            //段落号更改
+            projectResult.setCurrentArticleParagraphNum(result1);
 
             //相似文章的地址字段转文件服务器上的真实文字
             String comparedArticleParagraphAddress = projectResult.getComparedArticleParagraphContent();
@@ -137,6 +180,8 @@ public class ProjectResultController extends BaseController {
             projectResultBody.setArticle2Name(result);
             projectResultBodies.add(projectResultBody);
         }
+
+
 
         return R.ok().data("result", address1).data("article2Name", projectResultBodies);
     }

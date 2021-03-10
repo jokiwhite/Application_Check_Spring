@@ -25,5 +25,9 @@ public class ProjectResult extends BaseEntity {
 
     private String comparedArticleParagraphContent;
 
+    private  String yuxuan;
+
+    private  int status;
+
 
 }

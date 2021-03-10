@@ -167,39 +167,46 @@ public class CurrentprojectinformationServiceImpl implements ICurrentprojectinfo
 
     @Override
     public List<EchartsVo> handleApplyCode(List<EchartsVo> list) {
-        for (EchartsVo listAC : list) {
-            switch (listAC.getApplyCode())
-            {
-                case "A" :
-                    listAC.setApplyCode("数理科学部");
-                    break;
-                case "B" :
-                    listAC.setApplyCode("化学科学部");
-                    break;
-                case "C" :
-                    listAC.setApplyCode("生物科学部");
-                    break;
-                case "D" :
-                    listAC.setApplyCode("地球科学部");
-                    break;
-                case "E" :
-                    listAC.setApplyCode("工程与材料科学部");
-                    break;
-                case "F" :
-                    listAC.setApplyCode("信息科学部");
-                    break;
-                case "G" :
-                    listAC.setApplyCode("管理科学部");
-                    break;
-                case "H" :
-                    listAC.setApplyCode("医学科学部");
-                    break;
 
+        for (EchartsVo listAC : list) {
+            if (listAC.getApplyCode()!=null){
+                switch (listAC.getApplyCode())
+                {
+                    case "A" :
+                        listAC.setApplyCode("数理科学部");
+                        break;
+                    case "B" :
+                        listAC.setApplyCode("化学科学部");
+                        break;
+                    case "C" :
+                        listAC.setApplyCode("生物科学部");
+                        break;
+                    case "D" :
+                        listAC.setApplyCode("地球科学部");
+                        break;
+                    case "E" :
+                        listAC.setApplyCode("工程与材料科学部");
+                        break;
+                    case "F" :
+                        listAC.setApplyCode("信息科学部");
+                        break;
+                    case "G" :
+                        listAC.setApplyCode("管理科学部");
+                        break;
+                    case "H" :
+                        listAC.setApplyCode("医学科学部");
+                        break;
+                    default :
+                        listAC.setApplyCode("未知");
+
+                }
             }
+
+
         }
-        for (int i = 0; i < 3; i++) {
-            list.remove(list.size()-1);
-        }
+//        for (int i = 0; i < 2; i++) {
+        list.remove(list.size()-1);
+//        }
         return list;
     }
 

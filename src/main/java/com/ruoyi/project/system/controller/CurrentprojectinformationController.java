@@ -10,10 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.framework.aspectj.lang.annotation.Log;
@@ -22,7 +19,6 @@ import com.ruoyi.project.system.domain.Currentprojectinformation;
 import com.ruoyi.project.system.service.ICurrentprojectinformationService;
 import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
-import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.framework.web.page.TableDataInfo;
 
 /**
@@ -36,6 +32,7 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 @RequestMapping("/system/currentprojectinformation")
 public class CurrentprojectinformationController extends BaseController
 {
+
     @Autowired
     private ICurrentprojectinformationService currentprojectinformationService;
 
@@ -59,14 +56,17 @@ public class CurrentprojectinformationController extends BaseController
         return R.ok().data("list",result);
     }
     //饼图学科分类
+    @ApiOperation("applyCodePie")
     @PostMapping("/applyCodePie")
     public R applyCodePie(){
 
         List<EchartsVo> list = currentprojectinformationService.selectApplyCode();
+        System.out.println(list);
         List<EchartsVo> result =currentprojectinformationService.handleApplyCode(list);
         return R.ok().data("list",result);
     }
     //折线图最近七日提交
+    @ApiOperation("submitTimeline")
     @PostMapping("/submitTimeline")
     public R submitTimeline(){
         List<EchartsVo> list = currentprojectinformationService.selectSubmitTime();
@@ -103,6 +103,19 @@ public class CurrentprojectinformationController extends BaseController
         startPage();
         List<Currentprojectinformation> list = currentprojectinformationService.selectCurrentprojectinformationListAfter(currentprojectinformation);
         return getDataTable(list);
+
+
+
+
+    //        List<Currentprojectinformation> list = new ArrayList<>();
+    //
+    //        for (int i=0;i<quchongAfter.length;i++){
+    //            Currentprojectinformation currentprojectinformation1 = currentprojectinformationService.selectCurrentprojectinformationById(Long.valueOf(quchongAfter[i]));
+    //            list.add(currentprojectinformation1);
+    //        }
+    //
+    //        return getDataTable(list);
+
     }
 
 
