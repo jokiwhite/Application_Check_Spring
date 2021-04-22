@@ -2,8 +2,11 @@ package com.ruoyi.project.system.controller;
 
 
 import com.ruoyi.common.utils.R;
+import com.ruoyi.framework.redis.RedisCache;
 import com.ruoyi.framework.web.controller.BaseController;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,7 @@ import java.io.InputStreamReader;
 @RestController
 @RequestMapping("/system/python")
 public class PythonController extends BaseController{
+    
 
     @PostMapping("/start/{pythonName}/{pythonPassword}")
     public R start(@PathVariable("pythonName") String name,@PathVariable("pythonPassword") String password) throws IOException, InterruptedException {
@@ -33,5 +37,8 @@ public class PythonController extends BaseController{
 
         return R.ok().data("1",name);
     }
+
+    //写一个计算checkRate的方法
+
 
 }

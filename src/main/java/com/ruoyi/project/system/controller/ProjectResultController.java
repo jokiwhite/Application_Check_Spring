@@ -8,23 +8,18 @@ import com.ruoyi.project.system.domain.Currentprojectinformation;
 import com.ruoyi.project.system.domain.Feedbackprojectinformation;
 import com.ruoyi.project.system.domain.ProjectResult;
 import com.ruoyi.project.system.domain.vo.ProjectResultBody;
-import com.ruoyi.project.system.domain.vo.quChongVO;
 import com.ruoyi.project.system.service.ICurrentprojectinformationService;
 import com.ruoyi.project.system.service.IFeedbackprojectinformationService;
 import com.ruoyi.project.system.service.IProjectResultService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Api(tags = "查重报告页面接口")
 @RestController
@@ -40,7 +35,7 @@ public class ProjectResultController extends BaseController {
 
 
     @ApiOperation(value = "去重")
-    @GetMapping("test/{id1}")
+    @GetMapping("test")
     public R test() {
 
         HashSet<Integer> result = projectResultService.quChong();
@@ -62,7 +57,9 @@ public class ProjectResultController extends BaseController {
 
 
 
-        String article1Name = projectService.selectFeedbackprojectinformationById(address1.get(0).getCurrentArticleID()).getProjectname();
+//        String article1Name = projectService.selectFeedbackprojectinformationById(address1.get(0).getCurrentArticleID()).getProjectname();
+
+        String article1Name =currentProjectService.selectCurrentprojectinformationById(Long.valueOf(address1.get(0).getCurrentArticleID())).getProjectname();
 
         List<ProjectResultBody> projectResultBodies = new ArrayList<>();
 
@@ -74,23 +71,31 @@ public class ProjectResultController extends BaseController {
             String college;
             String applyyear;
 
+            Currentprojectinformation currentprojectinformation = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(projectResult.getComparedArticleID()));
 
-            if (projectResult.getStatus()==1){
-                Currentprojectinformation currentprojectinformation = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(projectResult.getComparedArticleID()));
+            article2Name = currentprojectinformation.getProjectname();
+            personname = currentprojectinformation.getPersonname();
+            fundingtype = currentprojectinformation.getFundingtype();
+            college = currentprojectinformation.getCollege();
+            applyyear = currentprojectinformation.getApplyyear();
 
-                article2Name = currentprojectinformation.getProjectname();
-                 personname = currentprojectinformation.getPersonname();
-                 fundingtype = currentprojectinformation.getFundingtype();
-                 college = currentprojectinformation.getCollege();
-                 applyyear = currentprojectinformation.getApplyyear();
-            }else {
-                Feedbackprojectinformation feedbackprojectinformation = projectService.selectFeedbackprojectinformationById(projectResult.getComparedArticleID());
-                article2Name = feedbackprojectinformation.getProjectname();
-                personname = feedbackprojectinformation.getPersonname();
-                fundingtype = feedbackprojectinformation.getFundingtype();
-                college = feedbackprojectinformation.getCollege();
-                applyyear = feedbackprojectinformation.getApplyyear();
-            }
+
+//            if (projectResult.getStatus()==1){
+//                Currentprojectinformation currentprojectinformation = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(projectResult.getComparedArticleID()));
+//
+//                article2Name = currentprojectinformation.getProjectname();
+//                 personname = currentprojectinformation.getPersonname();
+//                 fundingtype = currentprojectinformation.getFundingtype();
+//                 college = currentprojectinformation.getCollege();
+//                 applyyear = currentprojectinformation.getApplyyear();
+//            }else {
+//                Feedbackprojectinformation feedbackprojectinformation = projectService.selectFeedbackprojectinformationById(projectResult.getComparedArticleID());
+//                article2Name = feedbackprojectinformation.getProjectname();
+//                personname = feedbackprojectinformation.getPersonname();
+//                fundingtype = feedbackprojectinformation.getFundingtype();
+//                college = feedbackprojectinformation.getCollege();
+//                applyyear = feedbackprojectinformation.getApplyyear();
+//            }
 
 
 
@@ -121,6 +126,14 @@ public class ProjectResultController extends BaseController {
             }
         }
 
+//        Iterator<ProjectResultBody> iterator = newProjectResultBodies.iterator();
+//        while(iterator.hasNext()){
+//            String integer = iterator.next().getComparedNum();
+//            if(integer.equals("1")||integer.equals("2"))
+//                iterator.remove();     //注意这个地方,删除了段落数为1的。
+//        }
+
+
         return R.ok().data("article2Name", newProjectResultBodies).data("currentInformation",currentprojectinformations);
     }
 
@@ -133,6 +146,8 @@ public class ProjectResultController extends BaseController {
 
         //利用本文id获取所有本文id的数据
        List<ProjectResult> address1 = projectResultService.getAddressById(id1);
+
+       address1.sort(Comparator.comparing(ProjectResult::getComparedArticleID));
 
         List<ProjectResultBody> projectResultBodies = new ArrayList<>();
 
@@ -150,8 +165,8 @@ public class ProjectResultController extends BaseController {
             //原文的地址字段转文件服务器上的真实文字
             String currentArticleParagraphAddress = projectResult.getCurrentArticleParagraphContent();
             String[] names = currentArticleParagraphAddress.split("\\\\");
-            String path = names[1]+"/"+names[2]+"/"+names[3];
-            String fileName = names[4];
+            String path = names[1]+"/"+names[2]+"/"+names[3]+"/"+names[4];
+            String fileName = names[5];
             String DataCurrent=FTPUtil.getData(path,fileName);
             projectResult.setCurrentArticleParagraphContent(DataCurrent);
 
@@ -161,19 +176,38 @@ public class ProjectResultController extends BaseController {
             //相似文章的地址字段转文件服务器上的真实文字
             String comparedArticleParagraphAddress = projectResult.getComparedArticleParagraphContent();
             String[] names2 = comparedArticleParagraphAddress.split("\\\\");
-            String path2 = names2[1]+"/"+names2[2]+"/"+names2[3];
-            String fileName2 = names2[4];
+            String path2 = names2[1]+"/"+names2[2]+"/"+names2[3]+"/"+names2[4];
+            String fileName2 = names2[5];
             String DataCompared=FTPUtil.getData(path2,fileName2);
             projectResult.setComparedArticleParagraphContent(DataCompared);
 
             ProjectResultBody projectResultBody = new ProjectResultBody();
             String articleID21 = projectResult.getComparedArticleID();
             projectResultBody.setArticleID2(articleID21);
+            
+            String article2Name;
+            String personname;
+            String applyyear;
+            String fundingtype;
 
-            String article2Name = projectService.selectFeedbackprojectinformationById(articleID21).getProjectname();
-            String personname = projectService.selectFeedbackprojectinformationById(articleID21).getPersonname();
-            String applyyear = projectService.selectFeedbackprojectinformationById(articleID21).getApplyyear();
-            String fundingtype = projectService.selectFeedbackprojectinformationById(articleID21).getFundingtype();
+            Currentprojectinformation currentprojectinformation2 = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(projectResult.getComparedArticleID()));
+            article2Name = currentprojectinformation2.getProjectname();
+            personname = currentprojectinformation2.getPersonname();
+            fundingtype = currentprojectinformation2.getFundingtype();
+            applyyear = currentprojectinformation2.getApplyyear();
+//            if(projectResult.getStatus()==1){
+//                Currentprojectinformation currentprojectinformation2 = currentProjectService.selectCurrentprojectinformationById(Long.valueOf(projectResult.getComparedArticleID()));
+//
+//                article2Name = currentprojectinformation2.getProjectname();
+//                personname = currentprojectinformation2.getPersonname();
+//                fundingtype = currentprojectinformation2.getFundingtype();
+//                applyyear = currentprojectinformation2.getApplyyear();
+//            }else {
+//                article2Name = projectService.selectFeedbackprojectinformationById(articleID21).getProjectname();
+//                personname = projectService.selectFeedbackprojectinformationById(articleID21).getPersonname();
+//                applyyear = projectService.selectFeedbackprojectinformationById(articleID21).getApplyyear();
+//                fundingtype = projectService.selectFeedbackprojectinformationById(articleID21).getFundingtype();
+//            }
 
             String result = applyyear+"_"+personname+"_"+article2Name+"_"+fundingtype;
 

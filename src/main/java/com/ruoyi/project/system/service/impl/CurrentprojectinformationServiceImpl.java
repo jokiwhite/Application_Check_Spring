@@ -1,7 +1,9 @@
 package com.ruoyi.project.system.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.ruoyi.project.system.domain.vo.EchartsVo;
@@ -20,6 +22,8 @@ import com.ruoyi.project.system.service.ICurrentprojectinformationService;
 @Service
 public class CurrentprojectinformationServiceImpl implements ICurrentprojectinformationService 
 {
+
+
     @Autowired
     private CurrentprojectinformationMapper currentprojectinformationMapper;
 
@@ -44,7 +48,18 @@ public class CurrentprojectinformationServiceImpl implements ICurrentprojectinfo
     @Override
     public List<Currentprojectinformation> selectCurrentprojectinformationList(Currentprojectinformation currentprojectinformation)
     {
+        currentprojectinformation.setApplyyear(getCurrentYear());
         return currentprojectinformationMapper.selectCurrentprojectinformationList(currentprojectinformation);
+    }
+
+    @Override
+    public List<Currentprojectinformation> selectCurrentprojectinformationListFeedBack(Currentprojectinformation currentprojectinformation) {
+        if (currentprojectinformation.getApplyyear()==null){
+            currentprojectinformation.setApplyyear(getCurrentYear());
+            return currentprojectinformationMapper.selectFeedBackprojectinformationList2(currentprojectinformation);
+        }
+
+        return currentprojectinformationMapper.selectFeedBackprojectinformationList(currentprojectinformation);
     }
 
     /**
@@ -109,9 +124,16 @@ public class CurrentprojectinformationServiceImpl implements ICurrentprojectinfo
         return currentprojectinformationMapper.selectCurrentprojectinformationListAfter(currentprojectinformation);
     }
 
+    public  String getCurrentYear(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        return sdf.format(date);
+    }
+
     @Override
     public List<EchartsVo> selectCollege() {
-        return currentprojectinformationMapper.selectCollege();
+
+        return currentprojectinformationMapper.selectCollege(Integer.parseInt(getCurrentYear()));
     }
 
     @Override
@@ -137,7 +159,7 @@ public class CurrentprojectinformationServiceImpl implements ICurrentprojectinfo
 
     @Override
     public List<EchartsVo> selectFundingType() {
-        return currentprojectinformationMapper.selectFundingType();
+        return currentprojectinformationMapper.selectFundingType(Integer.parseInt(getCurrentYear()));
     }
 
     @Override
@@ -162,7 +184,7 @@ public class CurrentprojectinformationServiceImpl implements ICurrentprojectinfo
 
     @Override
     public List<EchartsVo> selectApplyCode() {
-        return currentprojectinformationMapper.selectApplyCode();
+        return currentprojectinformationMapper.selectApplyCode(Integer.parseInt(getCurrentYear()));
     }
 
     @Override
@@ -214,4 +236,6 @@ public class CurrentprojectinformationServiceImpl implements ICurrentprojectinfo
     public List<EchartsVo> selectSubmitTime() {
         return currentprojectinformationMapper.selectSubmitTime();
     }
+
+
 }

@@ -60,10 +60,10 @@ public class ProjectResultServiceImpl implements IProjectResultService {
             String personname = currentprojectinformationMapper.selectCurrentprojectinformationById(Long.valueOf(quChongVO.getCurrentArticleID())).getPersonname();
             HashSet<String> CpersonName = new HashSet<>();
             List<Integer> comparedArticleIDById = projectResultMapper.getComparedArticleIDById(String.valueOf(quChongVO.getCurrentArticleID()));
-            System.out.println(personname);
 
             for (Integer comparedArticleID : comparedArticleIDById) {
-                String personname1 = feedbackprojectinformationMapper.selectFeedbackprojectinformationById(String.valueOf(comparedArticleID)).getPersonname();
+//                String personname1 = feedbackprojectinformationMapper.selectFeedbackprojectinformationById(String.valueOf(comparedArticleID)).getPersonname();
+                String personname1 = currentprojectinformationMapper.selectCurrentprojectinformationById(Long.valueOf(comparedArticleID)).getPersonname();
                 CpersonName.add(personname1);
             }
             if (CpersonName.contains(personname)){

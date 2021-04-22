@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="chineseabstract"    column="ChineseAbstract"    />
         <result property="englishabstract"    column="EnglishAbstract"    />
         <result property="chinesekeyword"    column="ChineseKeyword"    />
-        <result property="englishkeyword"    column="EnglishKeyword"    />
+        <result property="money"    column="Money"    />
         <result property="supportingunit"    column="SupportingUnit"    />
         <result property="unitcontact"    column="UnitContact"    />
         <result property="unitcontactemail"    column="UnitContactEmail"    />
@@ -67,12 +67,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="processed"    column="Processed"    />
         <result property="detected"    column="Detected"    />
         <result property="statusweb"    column="StatusWeb"    />
-
+        <result property="jobtitle"    column="JobTitle"    />
         <result property="checkrate"    column="CheckRate"    />
     </resultMap>
 
+<!--    <sql id="selectCurrentprojectinformationVo">-->
+<!--        select  ApplyCode1, ProjectName, PersonName, FundingType, ScienceNumber, VersionNumber, College, ApplyYear, SubmitTime, Status, ProjectEnglishName, ApplyCode2, SubclassDescription, NoteDescription, StartData, EndData, Base, MainResearch, ResearchDirection, ChineseAbstract, EnglishAbstract, ChineseKeyword,  SupportingUnit, UnitContact, UnitContactEmail, UnitContactPhone, CollegeContact, CollegeContactEmail, CollegeContactPhone, PeapleListName, PeapleListEmail, PeapleListJob, PeapleListUnitName, PeapleListWork, TotalNumber, Advanced, Intermediate, Primary1, Postdoc, PhD, Master, ApplyPersonType, ScientificResearchProjects, ScientificProblemAttributes, ScientificProblemAttributesContent, PDFDownloadAddress, Processed, Detected, StatusWeb, CheckRate from currentprojectinformation-->
+<!--    </sql>-->
+
     <sql id="selectCurrentprojectinformationVo">
-        select id, ApplyCode1, ProjectName, PersonName, FundingType, ScienceNumber, VersionNumber, College, ApplyYear, SubmitTime, Status, ProjectEnglishName, ApplyCode2, SubclassDescription, NoteDescription, StartData, EndData, Base, MainResearch, ResearchDirection, ChineseAbstract, EnglishAbstract, ChineseKeyword, EnglishKeyword, SupportingUnit, UnitContact, UnitContactEmail, UnitContactPhone, CollegeContact, CollegeContactEmail, CollegeContactPhone, PeapleListName, PeapleListEmail, PeapleListJob, PeapleListUnitName, PeapleListWork, TotalNumber, Advanced, Intermediate, Primary1, Postdoc, PhD, Master, ApplyPersonType, ScientificResearchProjects, ScientificProblemAttributes, ScientificProblemAttributesContent, PDFDownloadAddress, Processed, Detected, StatusWeb, CheckRate from currentprojectinformation
+        select * from currentprojectinformation
     </sql>
 
     <select id="selectCurrentprojectinformationList" parameterType="Currentprojectinformation" resultMap="CurrentprojectinformationResult">
@@ -100,7 +104,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="chineseabstract != null  and chineseabstract != ''"> and ChineseAbstract = #{chineseabstract}</if>
             <if test="englishabstract != null  and englishabstract != ''"> and EnglishAbstract = #{englishabstract}</if>
             <if test="chinesekeyword != null  and chinesekeyword != ''"> and ChineseKeyword = #{chinesekeyword}</if>
-            <if test="englishkeyword != null  and englishkeyword != ''"> and EnglishKeyword = #{englishkeyword}</if>
+
+            <if test="supportingunit != null  and supportingunit != ''"> and SupportingUnit = #{supportingunit}</if>
+            <if test="unitcontact != null  and unitcontact != ''"> and UnitContact = #{unitcontact}</if>
+            <if test="unitcontactemail != null  and unitcontactemail != ''"> and UnitContactEmail = #{unitcontactemail}</if>
+            <if test="unitcontactphone != null  and unitcontactphone != ''"> and UnitContactPhone = #{unitcontactphone}</if>
+            <if test="collegecontact != null  and collegecontact != ''"> and CollegeContact = #{collegecontact}</if>
+            <if test="collegecontactemail != null  and collegecontactemail != ''"> and CollegeContactEmail = #{collegecontactemail}</if>
+            <if test="collegecontactphone != null  and collegecontactphone != ''"> and CollegeContactPhone = #{collegecontactphone}</if>
+            <if test="peaplelistname != null  and peaplelistname != ''"> and PeapleListName like concat('%', #{peaplelistname}, '%')</if>
+            <if test="peaplelistemail != null  and peaplelistemail != ''"> and PeapleListEmail = #{peaplelistemail}</if>
+            <if test="peaplelistjob != null  and peaplelistjob != ''"> and PeapleListJob = #{peaplelistjob}</if>
+            <if test="peaplelistunitname != null  and peaplelistunitname != ''"> and PeapleListUnitName like concat('%', #{peaplelistunitname}, '%')</if>
+            <if test="peaplelistwork != null  and peaplelistwork != ''"> and PeapleListWork = #{peaplelistwork}</if>
+            <if test="totalnumber != null  and totalnumber != ''"> and TotalNumber = #{totalnumber}</if>
+            <if test="advanced != null  and advanced != ''"> and Advanced = #{advanced}</if>
+            <if test="intermediate != null  and intermediate != ''"> and Intermediate = #{intermediate}</if>
+            <if test="primary1 != null  and primary1 != ''"> and Primary1 = #{primary1}</if>
+            <if test="postdoc != null  and postdoc != ''"> and Postdoc = #{postdoc}</if>
+            <if test="phd != null  and phd != ''"> and PhD = #{phd}</if>
+            <if test="master != null  and master != ''"> and Master = #{master}</if>
+            <if test="applypersontype != null  and applypersontype != ''"> and ApplyPersonType = #{applypersontype}</if>
+            <if test="scientificresearchprojects != null  and scientificresearchprojects != ''"> and ScientificResearchProjects = #{scientificresearchprojects}</if>
+            <if test="scientificproblemattributes != null  and scientificproblemattributes != ''"> and ScientificProblemAttributes = #{scientificproblemattributes}</if>
+            <if test="scientificproblemattributescontent != null  and scientificproblemattributescontent != ''"> and ScientificProblemAttributesContent = #{scientificproblemattributescontent}</if>
+            <if test="pdfdownloadaddress != null  and pdfdownloadaddress != ''"> and PDFDownloadAddress = #{pdfdownloadaddress}</if>
+            <if test="processed != null "> and Processed = #{processed}</if>
+            <if test="detected != null "> and Detected = #{detected}</if>
+            <if test="statusweb != null "> and StatusWeb = #{statusweb}</if>
+
+            <if test="checkrate != null "> and CheckRate = #{checkrate}</if>
+        </where>
+    </select>
+
+    <select id="selectFeedBackprojectinformationList2" parameterType="Currentprojectinformation" resultMap="CurrentprojectinformationResult">
+        SELECT * FROM `currentprojectinformation` WHERE ApplyYear!=#{applyyear}
+    </select>
+
+    <select id="selectFeedBackprojectinformationList" parameterType="Currentprojectinformation" resultMap="CurrentprojectinformationResult">
+        <include refid="selectCurrentprojectinformationVo"/>
+        <where>
+            <if test="applycode1 != null  and applycode1 != ''"> and ApplyCode1 = #{applycode1}</if>
+            <if test="projectname != null  and projectname != ''"> and ProjectName like concat('%', #{projectname}, '%')</if>
+            <if test="personname != null  and personname != ''"> and PersonName like concat('%', #{personname}, '%')</if>
+            <if test="fundingtype != null  and fundingtype != ''"> and FundingType = #{fundingtype}</if>
+            <if test="sciencenumber != null  and sciencenumber != ''"> and ScienceNumber = #{sciencenumber}</if>
+            <if test="versionnumber != null  and versionnumber != ''"> and VersionNumber = #{versionnumber}</if>
+            <if test="college != null  and college != ''"> and College = #{college}</if>
+            <if test="applyyear != null  and college != ''"> and ApplyYear = #{applyyear}</if>
+            <if test="submittime != null  and submittime != ''"> and SubmitTime = #{submittime}</if>
+            <if test="status != null  and status != ''"> and Status = #{status}</if>
+            <if test="projectenglishname != null  and projectenglishname != ''"> and ProjectEnglishName like concat('%', #{projectenglishname}, '%')</if>
+            <if test="applycode2 != null  and applycode2 != ''"> and ApplyCode2 = #{applycode2}</if>
+            <if test="subclassdescription != null  and subclassdescription != ''"> and SubclassDescription = #{subclassdescription}</if>
+            <if test="notedescription != null  and notedescription != ''"> and NoteDescription = #{notedescription}</if>
+            <if test="startdata != null  and startdata != ''"> and StartData = #{startdata}</if>
+            <if test="enddata != null  and enddata != ''"> and EndData = #{enddata}</if>
+            <if test="base != null  and base != ''"> and Base = #{base}</if>
+            <if test="mainresearch != null  and mainresearch != ''"> and MainResearch = #{mainresearch}</if>
+            <if test="researchdirection != null  and researchdirection != ''"> and ResearchDirection = #{researchdirection}</if>
+            <if test="chineseabstract != null  and chineseabstract != ''"> and ChineseAbstract = #{chineseabstract}</if>
+            <if test="englishabstract != null  and englishabstract != ''"> and EnglishAbstract = #{englishabstract}</if>
+            <if test="chinesekeyword != null  and chinesekeyword != ''"> and ChineseKeyword = #{chinesekeyword}</if>
+
             <if test="supportingunit != null  and supportingunit != ''"> and SupportingUnit = #{supportingunit}</if>
             <if test="unitcontact != null  and unitcontact != ''"> and UnitContact = #{unitcontact}</if>
             <if test="unitcontactemail != null  and unitcontactemail != ''"> and UnitContactEmail = #{unitcontactemail}</if>
@@ -158,7 +224,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="chineseabstract != null  and chineseabstract != ''"> and ChineseAbstract = #{chineseabstract}</if>
             <if test="englishabstract != null  and englishabstract != ''"> and EnglishAbstract = #{englishabstract}</if>
             <if test="chinesekeyword != null  and chinesekeyword != ''"> and ChineseKeyword = #{chinesekeyword}</if>
-            <if test="englishkeyword != null  and englishkeyword != ''"> and EnglishKeyword = #{englishkeyword}</if>
+
             <if test="supportingunit != null  and supportingunit != ''"> and SupportingUnit = #{supportingunit}</if>
             <if test="unitcontact != null  and unitcontact != ''"> and UnitContact = #{unitcontact}</if>
             <if test="unitcontactemail != null  and unitcontactemail != ''"> and UnitContactEmail = #{unitcontactemail}</if>
@@ -185,7 +251,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="pdfdownloadaddress != null  and pdfdownloadaddress != ''"> and PDFDownloadAddress = #{pdfdownloadaddress}</if>
             <if test="processed != null "> and Processed = #{processed}</if>
             <if test="detected != null "> and Detected = #{detected}</if>
-            <if test="statusweb =2   "> and StatusWeb = #{statusweb}</if>
+            <if test="statusweb != null ">and StatusWeb = #{statusweb}</if>
+            <if test="statusweb== null    "> and (StatusWeb=2 or StatusWeb =3)</if>
 
             <if test="checkrate != null "> and CheckRate = #{checkrate}</if>
         </where>
@@ -221,7 +288,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="chineseabstract != null  and chineseabstract != ''">ChineseAbstract,</if>
             <if test="englishabstract != null  and englishabstract != ''">EnglishAbstract,</if>
             <if test="chinesekeyword != null  and chinesekeyword != ''">ChineseKeyword,</if>
-            <if test="englishkeyword != null  and englishkeyword != ''">EnglishKeyword,</if>
+
             <if test="supportingunit != null  and supportingunit != ''">SupportingUnit,</if>
             <if test="unitcontact != null  and unitcontact != ''">UnitContact,</if>
             <if test="unitcontactemail != null  and unitcontactemail != ''">UnitContactEmail,</if>
@@ -275,7 +342,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="chineseabstract != null  and chineseabstract != ''">#{chineseabstract},</if>
             <if test="englishabstract != null  and englishabstract != ''">#{englishabstract},</if>
             <if test="chinesekeyword != null  and chinesekeyword != ''">#{chinesekeyword},</if>
-            <if test="englishkeyword != null  and englishkeyword != ''">#{englishkeyword},</if>
+
             <if test="supportingunit != null  and supportingunit != ''">#{supportingunit},</if>
             <if test="unitcontact != null  and unitcontact != ''">#{unitcontact},</if>
             <if test="unitcontactemail != null  and unitcontactemail != ''">#{unitcontactemail},</if>
@@ -333,7 +400,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="chineseabstract != null  and chineseabstract != ''">ChineseAbstract = #{chineseabstract},</if>
             <if test="englishabstract != null  and englishabstract != ''">EnglishAbstract = #{englishabstract},</if>
             <if test="chinesekeyword != null  and chinesekeyword != ''">ChineseKeyword = #{chinesekeyword},</if>
-            <if test="englishkeyword != null  and englishkeyword != ''">EnglishKeyword = #{englishkeyword},</if>
+
             <if test="supportingunit != null  and supportingunit != ''">SupportingUnit = #{supportingunit},</if>
             <if test="unitcontact != null  and unitcontact != ''">UnitContact = #{unitcontact},</if>
             <if test="unitcontactemail != null  and unitcontactemail != ''">UnitContactEmail = #{unitcontactemail},</if>
@@ -389,20 +456,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </update>
 
-    <select id="selectCollege" resultMap="testResult">
-        select College,count(1)  from currentprojectinformation group by College having count(1) > 1
+    <select id="selectCollege" parameterType="Integer" resultMap="testResult">
+        select College,count(1)  from currentprojectinformation WHERE ApplyYear=#{applyYear} group by College having count(1) > 1
     </select>
 
     <select id="selectFundingType" resultMap="testResult">
-        select FundingType,count(0)  from currentprojectinformation group by FundingType having count(0) > 0
+        select FundingType,count(0)  from currentprojectinformation WHERE ApplyYear=#{applyYear} group by FundingType having count(0) > 0
     </select>
 
     <select id="selectApplyCode" resultMap="testResult">
-        SELECT LEFT(ApplyCode1,1) ApplyCode,count(2)  from currentprojectinformation GROUP BY LEFT(ApplyCode1,1)
+        SELECT LEFT(ApplyCode1,1) ApplyCode,count(2)  from currentprojectinformation WHERE ApplyYear=#{applyYear} GROUP BY LEFT(ApplyCode1,1)
     </select>
 
     <select id="selectSubmitTime" resultMap="testResult">
         SELECT LEFT(SubmitTime,10) submitTime,count(3)   from currentprojectinformation  GROUP BY LEFT(SubmitTime,10) ORDER BY submitTime DESC
     </select>
+
+
     
 </mapper>

@@ -66,11 +66,15 @@ public interface CurrentprojectinformationMapper
 
     List<Currentprojectinformation> selectCurrentprojectinformationListAfter(Currentprojectinformation currentprojectinformation);
 
-    List<EchartsVo> selectCollege();
+    List<EchartsVo> selectCollege(int applyYear);
 
-    List<EchartsVo> selectFundingType();
+    List<EchartsVo> selectFundingType(int applyYear);
 
-    List<EchartsVo> selectApplyCode();
+    List<EchartsVo> selectApplyCode(int applyYear);
 
     List<EchartsVo> selectSubmitTime();
+
+    List<Currentprojectinformation> selectFeedBackprojectinformationList(Currentprojectinformation currentprojectinformation);
+
+    List<Currentprojectinformation> selectFeedBackprojectinformationList2(Currentprojectinformation currentprojectinformation);
 }

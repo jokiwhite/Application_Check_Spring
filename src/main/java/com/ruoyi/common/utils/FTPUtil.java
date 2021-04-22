@@ -133,7 +133,7 @@ public class FTPUtil {
         InputStream in = null;
         BufferedReader br = null;
         try{
-            FTPClient ftpClient = getFTPClient("10.16.8.224",21,"test","test");//实验室服务器
+            FTPClient ftpClient = getFTPClient("10.13.49.186",21,"test","test");//实验室服务器
             //读取单个文件
             in = getFTPFile(ftpClient,path,fileName);
             if(in != null){
@@ -163,10 +163,10 @@ public class FTPUtil {
         URLConnection connection = url.openConnection();
         InputStream input = connection.getInputStream();
 //        FTPClient ftpClient = getFTPClient("169.254.234.164",21,"test","test");//本地
-        FTPClient ftpClient = getFTPClient("10.16.8.224",21,"test","test");//实验室服务器
+        FTPClient ftpClient = getFTPClient("10.13.49.186",21,"test","test");//实验室服务器
         String ftpPath = "currentPDF/";
         try {
-            // 切换到上传目录
+            // 切换到上传目录10
             if (!ftpClient.changeWorkingDirectory(ftpPath)) {
                 // 如果目录不存在创建目录
                 String[] dirs = ftpPath.split("/");

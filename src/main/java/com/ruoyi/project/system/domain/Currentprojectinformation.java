@@ -54,6 +54,9 @@ public class Currentprojectinformation extends BaseEntity
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String submittime;
 
+
+    private String money;
+
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String status;
@@ -106,9 +109,9 @@ public class Currentprojectinformation extends BaseEntity
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String chinesekeyword;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String englishkeyword;
+//    /** $column.columnComment */
+//    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+//    private String englishkeyword;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
@@ -206,6 +209,16 @@ public class Currentprojectinformation extends BaseEntity
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String pdfdownloadaddress;
 
+    public String getJobtitle() {
+        return jobtitle;
+    }
+
+    public void setJobtitle(String jobtitle) {
+        this.jobtitle = jobtitle;
+    }
+
+    private String jobtitle;
+
     /** pdf有无解析 */
     @Excel(name = "pdf有无解析")
     private Integer processed;
@@ -221,6 +234,14 @@ public class Currentprojectinformation extends BaseEntity
     /** 综合查重率 */
     @Excel(name = "综合查重率")
     private String checkrate;
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
 
     public void setId(Long id) 
     {
@@ -429,15 +450,15 @@ public class Currentprojectinformation extends BaseEntity
     {
         return chinesekeyword;
     }
-    public void setEnglishkeyword(String englishkeyword) 
-    {
-        this.englishkeyword = englishkeyword;
-    }
-
-    public String getEnglishkeyword() 
-    {
-        return englishkeyword;
-    }
+//    public void setEnglishkeyword(String englishkeyword)
+//    {
+//        this.englishkeyword = englishkeyword;
+//    }
+//
+//    public String getEnglishkeyword()
+//    {
+//        return englishkeyword;
+//    }
     public void setSupportingunit(String supportingunit) 
     {
         this.supportingunit = supportingunit;
@@ -717,7 +738,7 @@ public class Currentprojectinformation extends BaseEntity
             .append("chineseabstract", getChineseabstract())
             .append("englishabstract", getEnglishabstract())
             .append("chinesekeyword", getChinesekeyword())
-            .append("englishkeyword", getEnglishkeyword())
+            .append("money", getMoney())
             .append("supportingunit", getSupportingunit())
             .append("unitcontact", getUnitcontact())
             .append("unitcontactemail", getUnitcontactemail())
@@ -745,7 +766,7 @@ public class Currentprojectinformation extends BaseEntity
             .append("processed", getProcessed())
             .append("detected", getDetected())
             .append("statusweb", getStatusweb())
-
+            .append("jobtitle",getJobtitle())
             .append("checkrate", getCheckrate())
             .toString();
     }

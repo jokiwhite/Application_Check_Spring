@@ -80,6 +80,7 @@ public class CurrentprojectinformationController extends BaseController
         return  R.ok().data("list",result);
     }
 
+
     @Log(title = "查重通过", businessType = BusinessType.UPDATE)
     @PostMapping("/status/{id}")
     public AjaxResult updateStatus(@PathVariable String id)
@@ -103,31 +104,27 @@ public class CurrentprojectinformationController extends BaseController
         startPage();
         List<Currentprojectinformation> list = currentprojectinformationService.selectCurrentprojectinformationListAfter(currentprojectinformation);
         return getDataTable(list);
-
-
-
-
-    //        List<Currentprojectinformation> list = new ArrayList<>();
-    //
-    //        for (int i=0;i<quchongAfter.length;i++){
-    //            Currentprojectinformation currentprojectinformation1 = currentprojectinformationService.selectCurrentprojectinformationById(Long.valueOf(quchongAfter[i]));
-    //            list.add(currentprojectinformation1);
-    //        }
-    //
-    //        return getDataTable(list);
-
     }
 
 
     /**
      * 查询本年度项目书列表
      */
-
-    @GetMapping("/list")
+    @ApiOperation("list本年度")
+    @GetMapping("/listCurrent")
     public TableDataInfo list(Currentprojectinformation currentprojectinformation)
     {
         startPage();
         List<Currentprojectinformation> list = currentprojectinformationService.selectCurrentprojectinformationList(currentprojectinformation);
+        return getDataTable(list);
+    }
+
+    @ApiOperation("list历史库")
+    @GetMapping("/listFeedBack")
+    public TableDataInfo listFeedBack(Currentprojectinformation currentprojectinformation)
+    {
+        startPage();
+        List<Currentprojectinformation> list = currentprojectinformationService.selectCurrentprojectinformationListFeedBack(currentprojectinformation);
         return getDataTable(list);
     }
 
